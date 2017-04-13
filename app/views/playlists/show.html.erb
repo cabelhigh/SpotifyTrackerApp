@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uri:</strong>
+  <%= @playlist.uri %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @playlist.name %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @playlist.creator %>
+</p>
+
+<p>
+  <strong>Tracking:</strong>
+  <%= @playlist.tracking %>
+</p>
+
+<p>
+  <strong>Gen new list:</strong>
+  <%= @playlist.gen_new_list %>
+</p>
+
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>
