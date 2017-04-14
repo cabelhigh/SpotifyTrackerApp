@@ -12,8 +12,9 @@ class UsersController < ApplicationController
         playlist.name = pl.name
         playlist.creator = pl.owner.uri
         playlist.tracking = true
-        playlist.gen_new_list = true
+        playlist.gen_new_list = false
         playlist.owner = @spotify_user.uri
+        playlist.ptype = "original"
         pl.tracks.each do |t|
           track = Track.new
           track.uri = t.uri

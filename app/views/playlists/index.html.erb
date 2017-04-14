@@ -12,6 +12,7 @@
       <th>Creator</th>
       <th>Tracking</th>
       <th>Gen new list</th>
+      <th>Type</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
         <td><%= playlist.creator %></td>
         <td><%= playlist.tracking %></td>
         <td><%= playlist.gen_new_list %></td>
+        <td><%= playlist.ptype %></td>
         <td><%= link_to 'Show', playlist %></td>
         <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
         <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>

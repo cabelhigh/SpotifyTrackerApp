@@ -64,7 +64,10 @@ class PlaylistsController < ApplicationController
   end
 
   def update_all_new_tracks
-
+    pls = Playlist.all
+    pls.each do |p|
+      p.add_remove_tracks
+    end
   end
 
   private
@@ -75,9 +78,9 @@ class PlaylistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:playlist).permit(:uri, :name, :creator, :tracking, :gen_new_list)
+      params.require(:playlist).permit(:uri, :name, :creator, :owner, :tracking, :gen_new_list)
     end
 
-    def compare_tracks(old_pl, new_pl)
+
 
 end

@@ -44,6 +44,9 @@ gem 'dotenv-rails'
 #Spotify Gems
 gem 'rspotify'
 
+#VCR Gems -- Used for HTTP/API request Specs
+gem 'typhoeus'
+
 # Database Search
 gem 'textacular'
 
@@ -64,6 +67,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'dotenv-rails'
   gem 'capybara-email'
+  gem 'vcr'
 end
 
 group :development do
