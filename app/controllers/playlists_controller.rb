@@ -1,3 +1,5 @@
+require 'rspotify'
+
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
 
@@ -61,6 +63,10 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def update_all_new_tracks
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playlist
@@ -71,4 +77,7 @@ class PlaylistsController < ApplicationController
     def playlist_params
       params.require(:playlist).permit(:uri, :name, :creator, :tracking, :gen_new_list)
     end
+
+    def compare_tracks(old_pl, new_pl)
+
 end

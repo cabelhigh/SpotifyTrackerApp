@@ -1,4 +1,9 @@
 <h1>Users#spotify</h1>
 <p>Find me in app/views/users/spotify.html.erb</p>
-<%= @spotify_user.uri %>
-<%= @your_playlists.count %>
+<% @your_playlists.each do |pl| %>
+  <%= form_for pl, :url => "/playlists/#{pl.id}", :method => :patch do |f| %>
+    <%= f.label :Track_this_playlist? %><%=f.check_box :tracking %>
+    <%= f.submit %>
+  <% end %>
+    <iframe src="https://embed.spotify.com/?uri=<%= pl.uri %>" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+<% end %>
