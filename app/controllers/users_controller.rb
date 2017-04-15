@@ -25,7 +25,8 @@ class UsersController < ApplicationController
       else
 
       end
-      debugger
+      session[:user_hash] = request.env['omniauth.auth'].to_yaml
+      # puts request.env['omniauth.auth']
       # #Search thru ur pls for the current pl uri, if it exists, don't make a new one
     end
 

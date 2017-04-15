@@ -1,6 +1,11 @@
 class Playlist < ApplicationRecord
   has_many :tracks
 
+  def destroy
+    self.tracks.destroy_all
+    super
+  end
+
   def owner_and_creator?(own, cre)
     owner==own && creator==cre
   end

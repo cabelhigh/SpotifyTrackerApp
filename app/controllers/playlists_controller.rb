@@ -65,12 +65,14 @@ class PlaylistsController < ApplicationController
   end
 
   def update_all_new_tracks
+    current_user_uri = RSpotify::User.new(YAML::load session[:user_hash]).uri
     pls = Playlist.all
     pls.each do |p|
-      p.add_remove_tracks if p.ptype=="original"
+      puts "The big three: #{p.ptype}, #{p.tracking}, #{p.owner}, and #{current_user_uri} "
+      p.add_remove_tracks if p.ptype=="original" && p.tracking && p.owner==current_user_uri
     end
     @playlists = Playlist.all
-    render "index.html.erb"
+    redirect_to root_path
   end
 
   private
