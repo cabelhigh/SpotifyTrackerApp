@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :tracks
   resources :playlists
 
+  patch 'playlist/update_all', to: 'playlists#update_all_new_tracks'
+
   root 'playlists#index'
 
   get '/auth/spotify/callback', to: 'users#spotify'

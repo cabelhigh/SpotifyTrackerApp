@@ -21,9 +21,22 @@
 </p>
 
 <p>
-  <strong>Gen new list:</strong>
-  <%= @playlist.gen_new_list %>
+  <strong>Playlist Type:</strong>
+  <%= @playlist.ptype %>
 </p>
+
+<table>
+  <tr>
+    <td>Track Name</td>
+    <td>Track URI</td>
+  </tr>
+  <% @playlist.tracks.each do |t| %>
+    <tr>
+      <td><%=t.name%></td>
+      <td><%=t.uri%></td>
+    </tr>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_playlist_path(@playlist) %> |
 <%= link_to 'Back', playlists_path %>

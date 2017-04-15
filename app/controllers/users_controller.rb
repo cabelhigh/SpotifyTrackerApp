@@ -25,6 +25,7 @@ class UsersController < ApplicationController
       else
 
       end
+      debugger
       # #Search thru ur pls for the current pl uri, if it exists, don't make a new one
     end
 

@@ -56,6 +56,7 @@ class PlaylistsController < ApplicationController
   # DELETE /playlists/1
   # DELETE /playlists/1.json
   def destroy
+    @playlist.tracks.destroy_all
     @playlist.destroy
     respond_to do |format|
       format.html { redirect_to playlists_url, notice: 'Playlist was successfully destroyed.' }
@@ -66,8 +67,10 @@ class PlaylistsController < ApplicationController
   def update_all_new_tracks
     pls = Playlist.all
     pls.each do |p|
-      p.add_remove_tracks
+      p.add_remove_tracks if p.ptype=="original"
     end
+    @playlists = Playlist.all
+    render "index.html.erb"
   end
 
   private

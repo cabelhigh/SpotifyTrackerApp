@@ -42,7 +42,7 @@ gem 'activerecord-session_store'
 gem 'dotenv-rails'
 
 #Spotify Gems
-gem 'rspotify'
+gem 'rspotify', '>=1.20.0'
 
 #VCR Gems -- Used for HTTP/API request Specs
 gem 'typhoeus'
