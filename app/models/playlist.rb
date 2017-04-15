@@ -56,6 +56,7 @@ class Playlist < ApplicationRecord
     pl.gen_new_list = false
     pl.owner = current_user_uri
     pl.ptype = "original"
+    pl.ptype = "discover_weekly" if rs_playlist.name == "Discover Weekly"
     rs_playlist.tracks.each do |t|
       track = Track.new
       track.uri = t.uri
@@ -68,7 +69,7 @@ class Playlist < ApplicationRecord
   private
 
     def add_tracks(playlist, new_tracks)
-      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "9d243cbe30a14b1da2873b66ca4f80cd")
+      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
       pl_track_uris = playlist.tracks.map{|t| t.uri}
       new_tracks.each do |t|
         if !pl_track_uris.include? t.uri
