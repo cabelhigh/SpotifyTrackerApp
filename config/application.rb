@@ -23,6 +23,6 @@ module SpotifyTrackerApp
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    RSpotify::authenticate("13c33594a47d498fbcefb942a3d6193a", "9d243cbe30a14b1da2873b66ca4f80cd")
+    RSpotify::authenticate("<client id>", "<client secret>")
   end
 end
