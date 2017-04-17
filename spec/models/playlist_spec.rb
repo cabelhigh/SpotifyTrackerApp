@@ -81,7 +81,7 @@ RSpec.describe Playlist, type: :model do
       pl.add_remove_tracks
       expect(Playlist.last.ptype).to eq 'removed_tracks'
       expect(Playlist.last.tracks[0].name).to eq removed_track1.name
-      expect(Playlist.last.tracks[1].name).to eq removed_track1.name #repeats the original result of the add_remove_tracks, bc of testing env
+      expect(Playlist.last.tracks[1].name).to eq removed_track1.name #repeats the original result of the add_remove_tracks, bc of
       expect(Playlist.last.tracks[2].name).to eq removed_track2.name
       expect(Playlist.last.tracks.count).to eq 3
     end

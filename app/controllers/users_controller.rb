@@ -10,6 +10,5 @@ class UsersController < ApplicationController
     end
 
     session[:user_hash] = request.env['omniauth.auth'].to_yaml
-
   end
 end
