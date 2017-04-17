@@ -70,7 +70,7 @@ class PlaylistsController < ApplicationController
     pls.each do |playlist|
       puts "The big three: #{playlist.ptype}, #{playlist.tracking}, #{playlist.owner}, and #{current_user_uri} "
       playlist.add_remove_tracks if playlist.ptype=="original" && playlist.tracking && playlist.owner==current_user_uri
-      playlist.update_discover if platlist.ptype=="discover_weekly"
+      playlist.update_discover RSpotify::User.new(YAML::load session[:user_hash]) if playlist.ptype=="discover_weekly"
     end
     @playlists = Playlist.all
     redirect_to root_path

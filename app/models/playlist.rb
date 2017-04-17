@@ -22,6 +22,22 @@ class Playlist < ApplicationRecord
     owner.split(':')[2]
   end
 
+  def update_discover user
+    new_pl = RSpotify::Playlist.new(RSpotify.get("https://api.spotify.com/v1/users/spotify/playlists/#{formatted_uri}"))
+      debugger
+      if Time.new >= new_pl.tracks_added_at.first.last+1.week && Playlist.find_by_name("Discover Weekly #{(new_pl.tracks_added_at.first.last-1.week).strftime("%m/%d/%Y")}").nil?
+        create_old_dw(new_pl.tracks_added_at.first.last-1.week, user)
+        self.tracks = [] #nils the pls's current tracks
+        new_pl.tracks.each do |t| #adds all of the new, pulled tracks to the local pl
+          track = Track.new
+          track.uri = t.uri
+          track.name = t.name
+          self.tracks << track
+        end
+        debugger
+      end
+  end
+
   def add_remove_tracks
     new_pl=RSpotify::Playlist.find(formatted_creator, formatted_uri)
     puts "Updated playlist size #{new_pl.tracks.size}"
@@ -42,7 +58,7 @@ class Playlist < ApplicationRecord
         track.name = t.name
         self.tracks << track
       end
-      debugger
+      # debugger
       puts "Current playlist size #{tracks.size}"
     end
   end
@@ -68,6 +84,24 @@ class Playlist < ApplicationRecord
 
   private
 
+    def create_old_dw(time, user)
+      pl = Playlist.new
+      pl.name = "Discover Weekly #{time.strftime("%m/%d/%Y")}"
+      pl.creator = "spotify:user:spotify" #owner of the ORIGINAL playlist, not the current user
+      pl.tracking = false
+      pl.gen_new_list = false
+      pl.owner = owner
+      pl.ptype = "removed_tracks"
+      self.tracks.each do |t|
+        track = Track.new
+        track.uri = t.uri
+        track.name = t.name
+        pl.tracks << track
+      end
+      pl.uri = create_spotify_pl(pl, user) #creates the playlist on spotify and returns its uri
+      pl.save
+    end
+
     def add_tracks(playlist, new_tracks)
       RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
       pl_track_uris = playlist.tracks.map{|t| t.uri}
@@ -84,8 +118,8 @@ class Playlist < ApplicationRecord
 
     def create_new_song_pl(track_uris, parent_playlist)
       playlist = Playlist.new
-      playlist.uri = parent_playlist.uri
-      playlist.name = parent_playlist.name
+      playlist.uri = parent_playlist.uri #should change -- be new, generated pl URI
+      playlist.name = "#{parent_playlist.name} -- Removed Tracks"
       playlist.creator = parent_playlist.creator
       playlist.tracking = true
       playlist.gen_new_list = false
@@ -98,6 +132,14 @@ class Playlist < ApplicationRecord
         playlist.tracks << track
       end
       playlist.save
+    end
+
+    def create_spotify_pl(local_playlist, user)
+      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
+      playlist = user.create_playlist!(local_playlist.name)
+      tracks = local_playlist.tracks.map{|t| RSpotify::Track.find(t.formatted_uri)}
+      playlist.add_tracks!(tracks)
+      playlist.uri
     end
 
     def compare_tracks(old_pl_uris, new_pl_uris)
