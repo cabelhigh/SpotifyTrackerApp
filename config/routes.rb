@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :tracks
   resources :playlists
 
-  patch 'playlist/update_all', to: 'playlists#update_all_new_tracks'
+  get 'playlist/update_all', to: 'playlists#update_all_new_tracks'
 
-  root 'playlists#index'
+  root 'playlists#landing_page'
 
   get '/auth/spotify/callback', to: 'users#spotify'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

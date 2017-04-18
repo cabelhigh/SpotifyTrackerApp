@@ -1,13 +1,14 @@
-<h1>Users#spotify</h1>
-<p>Find me in app/views/users/spotify.html.erb</p>
 <%= link_to 'Update Pls', '/playlist/update_all', :method => :patch %>
 <% creds = YAML::load(session[:user_hash]) %>
 <%= u = RSpotify::User.new(creds) %>
 <%# debugger %>
-<% @your_playlists.each do |pl| %>
+<div class="container">
+  <% @your_playlists.each do |pl| %>
   <%= form_for pl, :url => "/playlists/#{pl.id}", :method => :patch do |f| %>
-    <%= f.label :Track_this_playlist? %><%=f.check_box :tracking %>
-    <%= f.submit %>
+  <%= f.label :Track_this_playlist? %><%=f.check_box :tracking %>
+  <%= f.submit %>
   <% end %>
-    <iframe src="https://embed.spotify.com/?uri=<%= pl.uri %>" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-<% end %>
+  <iframe src="https://embed.spotify.com/?uri=<%= pl.uri %>" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+  <% end %>
+
+</div>

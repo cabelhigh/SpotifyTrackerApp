@@ -64,6 +64,9 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def landing_page
+  end
+
   def update_all_new_tracks
     current_user_uri = RSpotify::User.new(YAML::load session[:user_hash]).uri
     pls = Playlist.all
@@ -72,8 +75,8 @@ class PlaylistsController < ApplicationController
       playlist.add_remove_tracks RSpotify::User.new(YAML::load session[:user_hash]) if playlist.ptype=="original" && playlist.tracking && playlist.owner==current_user_uri
       playlist.update_discover RSpotify::User.new(YAML::load session[:user_hash]) if playlist.ptype=="discover_weekly"
     end
-    @playlists = Playlist.all
-    redirect_to root_path
+    @your_playlists = Playlist.where(owner: current_user_uri)
+    render "users/spotify.html.erb"
   end
 
   private
