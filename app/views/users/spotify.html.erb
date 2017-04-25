@@ -9,7 +9,7 @@
       <%= "<div class='row'>".html_safe  %>
     <% end %>
     <% row_start_count+=1 %>
-    <div class="pl_box col-md-4 <%= "untracked" if !pl.tracking%> <%= "recent" if pl.updated_at > Time.new-3.days%>">
+    <div class="pl_box col-md-4 <%= "untracked" if !pl.tracking%> <%= "recent" if pl.updated_at > Time.new-3.days%>" style="<%="background: linear-gradient(to top, #{Miro::DominantColors.new(pl.image_url).to_hex.last} , black)"%>">
       <h5><%=truncate(pl.name, length: 26)%></h5>
       <img src="<%= pl.image_url %>" height="128" width="128" alt="">
       <div class="bottom">

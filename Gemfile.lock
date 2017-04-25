@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/cabelhigh/miro/
+  revision: 70daca9395a90352cbeab49992457937ef77fb4a
+  specs:
+    miro (0.4.0)
+      chunky_png
+      cocaine
+      color
+      oily_png
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,6 +77,10 @@ GEM
     chromedriver-helper (1.1.0)
       archive-zip (~> 0.7.0)
       nokogiri (~> 1.6)
+    chunky_png (1.3.8)
+    climate_control (0.1.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -74,6 +88,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    color (1.8)
     concurrent-ruby (1.0.5)
     diff-lcs (1.3)
     docile (1.1.5)
@@ -135,6 +150,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    oily_png (1.2.1)
+      chunky_png (~> 1.3.7)
     omniauth (1.6.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -286,6 +303,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.2.1)
   launchy
   listen (~> 3.0.5)
+  miro!
   omniauth-twitter
   pg (~> 0.18)
   puma (~> 3.0)

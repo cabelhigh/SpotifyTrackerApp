@@ -51,6 +51,9 @@ gem 'typhoeus'
 # Database Search
 gem 'textacular'
 
+#Getting color from images
+gem 'miro', :git => "https://github.com/cabelhigh/miro/"
+
 
 group :test do
   gem 'capybara'
