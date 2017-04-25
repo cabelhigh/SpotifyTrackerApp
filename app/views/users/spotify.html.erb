@@ -9,12 +9,18 @@
       <%= "<div class='row'>".html_safe  %>
     <% end %>
     <% row_start_count+=1 %>
-    <div class="pl_box col-md-4 <%= "untracked" if !pl.tracking%> <%= "recent" if pl.updated_at > Time.new-3.days%>" style="<%="background: linear-gradient(to top, #{Miro::DominantColors.new(pl.image_url).to_hex.last} , black)"%>">
+    <div class="pl_box col-md-4 <%= "untracked" if !pl.tracking%> <%= "recent" if pl.updated_at > Time.new-3.days%>" style="<%="background: linear-gradient(to top, #{(pl.image_url.nil? ? "#1ED760" : Miro::DominantColors.new(pl.image_url).to_hex.last)} , black)"%>">
       <h5><%=truncate(pl.name, length: 26)%></h5>
       <img src="<%= pl.image_url %>" height="128" width="128" alt="">
       <div class="bottom">
-        <% pl.tracks.sort_by{|t| t.created_at}[0..4].reverse.each do |t| %>
-          <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
+        <% if pl.tracking %>
+          <% pl.tracks.sort_by{|t| t.created_at}[0..4].reverse.each do |t| %>
+            <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
+          <% end %>
+        <% else %>
+          <% pl.tracks.sort_by{|t| t.created_at}[0..4].each do |t| %>
+            <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
+          <% end %>
         <% end %>
       </div>
     </div>
