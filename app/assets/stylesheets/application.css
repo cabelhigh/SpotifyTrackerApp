@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require jquery.ui.all
  *= require_tree .
  *= require_self
  */
@@ -20,7 +21,7 @@ body {
 
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 24px;
 	font-style: normal;
@@ -28,6 +29,18 @@ h1, h2, h3, h4, h5, h6, p {
 	font-weight: 500;
 	line-height: 26.4px;
   color: white;
+}
+
+p{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: white;
+  padding: 0;
+  margin: 0;
 }
 
 #main {

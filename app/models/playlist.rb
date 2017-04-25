@@ -80,6 +80,7 @@ class Playlist < ApplicationRecord
     pl.owner = current_user_uri
     pl.ptype = "original"
     pl.ptype = "discover_weekly" if rs_playlist.name == "Discover Weekly"
+    pl.image_url = rs_playlist.images.first["url"]
     rs_playlist.tracks.each do |t|
       track = Track.new
       track.uri = t.uri
@@ -105,7 +106,9 @@ class Playlist < ApplicationRecord
         track.name = t.name
         pl.tracks << track
       end
-      pl.uri = create_spotify_pl(pl, user) #creates the playlist on spotify and returns its uri
+      spotify_pl = create_spotify_pl(pl, user)
+      pl.uri = spotify_pl.uri #creates the playlist on spotify and returns its uri
+      pl.image_url = spotify_pl.images.first["url"] if !spotify_pl.images.empty?
       pl.save
     end
 
@@ -155,17 +158,19 @@ class Playlist < ApplicationRecord
         playlist.tracks << track
       end
       # debugger
-      playlist.uri = create_spotify_pl(playlist, user) #creates the playlist on spotify and returns its uri
+      spotify_pl = create_spotify_pl(playlist, user)
+      playlist.uri = spotify_pl.uri #creates the playlist on spotify and returns its uri
+      playlist.image_url = spotify_pl.images.first["url"]
       playlist.save
     end
 
     def create_spotify_pl(local_playlist, user)
       RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
       playlist = user.create_playlist!(local_playlist.name)
-      tracks = local_playlist.tracks.map{|t| RSpotify::Track.find(t.formatted_uri)}
+      tracks = local_playlist.tracks.map{|t| RSpotify::Track.find(t.formatted_uri)}.reverse
       # debugger
       playlist.add_tracks!(tracks) if !tracks.empty?
-      playlist.uri
+      playlist
     end
 
     def add_spotify_track(track, pl_uri, user_name)

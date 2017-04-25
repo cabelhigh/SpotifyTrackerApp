@@ -1,14 +1,26 @@
 <%= link_to 'Update Pls', '/playlist/update_all', :method => :patch %>
 <% creds = YAML::load(session[:user_hash]) %>
 <%= u = RSpotify::User.new(creds) %>
+<% row_start_count = 0 %>
 <%# debugger %>
 <div class="container">
-  <% @your_playlists.each do |pl| %>
-  <%= form_for pl, :url => "/playlists/#{pl.id}", :method => :patch do |f| %>
-  <%= f.label :Track_this_playlist? %><%=f.check_box :tracking %>
-  <%= f.submit %>
+  <% @your_playlists.each_with_index do |pl, i| %>
+    <% if row_start_count==0 %>
+      <%= "<div class='row'>".html_safe  %>
+    <% end %>
+    <% row_start_count+=1 %>
+    <div class="pl_box col-md-4 <%= "untracked" if !pl.tracking%> <%= "recent" if pl.updated_at > Time.new-3.days%>">
+      <h5><%=truncate(pl.name, length: 26)%></h5>
+      <img src="<%= pl.image_url %>" height="128" width="128" alt="">
+      <div class="bottom">
+        <% pl.tracks.sort_by{|t| t.created_at}[0..4].reverse.each do |t| %>
+          <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
+        <% end %>
+      </div>
+    </div>
+    <% if row_start_count == 3 %>
+      <%= "</div>".html_safe  %>
+      <% row_start_count = 0 %>
+    <% end %>
   <% end %>
-  <iframe src="https://embed.spotify.com/?uri=<%= pl.uri %>" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-  <% end %>
-
 </div>
