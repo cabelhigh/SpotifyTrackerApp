@@ -113,7 +113,7 @@ class Playlist < ApplicationRecord
     end
 
     def add_to_remove_tracks(playlist, new_tracks, user) #adds the tracks remotely as well
-      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
+      RSpotify.authenticate("<>", "<>")
       pl_track_uris = playlist.tracks.map{|t| t.uri}
       # debugger
       new_tracks.each do |t|
@@ -129,7 +129,7 @@ class Playlist < ApplicationRecord
     end
 
     def add_to_original_tracks(playlist, new_tracks) #only adds the tracks locally
-      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
+      RSpotify.authenticate("<>", "<>")
       pl_track_uris = playlist.tracks.map{|t| t.uri}
       # debugger
       new_tracks.each do |t|
@@ -165,7 +165,7 @@ class Playlist < ApplicationRecord
     end
 
     def create_spotify_pl(local_playlist, user)
-      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
+      RSpotify.authenticate("<>", "<>")
       playlist = user.create_playlist!(local_playlist.name)
       tracks = local_playlist.tracks.map{|t| RSpotify::Track.find(t.formatted_uri)}.reverse
       # debugger
@@ -174,7 +174,7 @@ class Playlist < ApplicationRecord
     end
 
     def add_spotify_track(track, pl_uri, user_name)
-      RSpotify.authenticate("13c33594a47d498fbcefb942a3d6193a", "be301da18e4342c69952a036b716be70")
+      RSpotify.authenticate("<>", "<>")
       RSpotify::Playlist.find(user_name, pl_uri).add_tracks!(track)
     end
 
