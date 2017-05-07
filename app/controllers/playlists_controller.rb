@@ -76,7 +76,6 @@ class PlaylistsController < ApplicationController
       playlist.update_discover RSpotify::User.new(YAML::load session[:user_hash]) if playlist.ptype=="discover_weekly"
     end
     @your_playlists = Playlist.where(owner: current_user_uri).order(tracking: :desc, updated_at: :asc)
-
     render "users/spotify.html.erb"
   end
 

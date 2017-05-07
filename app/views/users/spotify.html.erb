@@ -17,10 +17,14 @@
           <% pl.tracks.sort_by{|t| t.created_at}[0..4].reverse.each do |t| %>
             <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
           <% end %>
+          <% puts "BEFORE DEBUGGER ^^^" %>
+          <% #debugger %>
         <% else %>
           <% pl.tracks.sort_by{|t| t.created_at}[0..4].each do |t| %>
             <p title="<%= "Added at #{t.updated_at.strftime("%D")}" %>" ><%=truncate(t.name, length: 25)%></p>
           <% end %>
+          <% puts "BEFORE DEBUGGER ^^^" %>
+          <% #debugger %>
         <% end %>
       </div>
     </div>

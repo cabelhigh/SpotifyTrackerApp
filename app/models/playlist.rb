@@ -160,7 +160,7 @@ class Playlist < ApplicationRecord
       # debugger
       spotify_pl = create_spotify_pl(playlist, user)
       playlist.uri = spotify_pl.uri #creates the playlist on spotify and returns its uri
-      playlist.image_url = spotify_pl.images.first["url"]
+      playlist.image_url = spotify_pl.images.first["url"] if !spotify_pl.images.empty?
       playlist.save
     end
 

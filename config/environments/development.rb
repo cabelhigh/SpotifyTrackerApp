@@ -52,6 +52,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  #Enables local caching
+  config.action_controller.perform_caching = true
+
   Miro.options[:image_magick_path] = '/usr/local/bin/convert'
   Miro.options[:resolution] = '100x100'
   Miro.options[:color_count] = 4
